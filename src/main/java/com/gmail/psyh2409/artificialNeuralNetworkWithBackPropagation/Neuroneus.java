@@ -9,7 +9,6 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode
-@ToString
 public class Neuroneus implements Passer {
 
     private List<Double> ins;
@@ -22,18 +21,18 @@ public class Neuroneus implements Passer {
         outs = new ArrayList<>();
     }
 
-    private Double summer(List<Double> ins) {
+    private double summer(List<Double> ins) {
         sum = ins.stream().reduce(0.0, (a, b) -> a + b);
         return sum;
     }
 
-    private Double activationSigmoid(Double in) {
+    private double activationSigmoid(double in) {
         double flatness = 1;
         out = 1 / (1 + Math.pow(Math.E, (in * (-1 * flatness))));
         return out;
     }
 
-    public Double forwardLifeCircle() {
+    public double forwardLifeCircle() {
         return activationSigmoid(summer(ins));
 
     }

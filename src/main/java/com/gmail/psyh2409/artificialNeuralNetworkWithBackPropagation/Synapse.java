@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Data
 @EqualsAndHashCode
-@ToString
 public class Synapse implements Passer{
     private Passer inNeuroneus;
     private double justice;
@@ -29,12 +28,12 @@ public class Synapse implements Passer{
         this.outNeuroneus = outNeuroneus;
     }
 
-    public Double weighting(Double in){
+    public double weighting(double in){
         return in * justice;
     }
 
     @Override
-    public Double forwardLifeCircle() {
+    public double forwardLifeCircle() {
         inDouble = inNeuroneus.forwardLifeCircle();
         return weighting(inDouble);
     }

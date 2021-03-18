@@ -1,14 +1,20 @@
 package com.gmail.psyh2409.artificialNeuralNetworkWithBackPropagation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ArtificialNeuralNetwork {
-    private final static int ins = 107*72;
-    private final static int hiddenLayer = 10;
-    private final static int hLCount = 5;
-    private final static int outs = 10;
+    private final static int ins = 4;
+    private final static int hiddenLayer = 4;
+    private final static int hLCount = 2;
+    private final static int outs = 1;
 
+    private static int[] toDigitArrayWithFixedCapacity(int someNumber) {
+        int log10 = someNumber == 0 ? 0 : (int) (Math.log10(someNumber));
+        int[] result = new int[ins];
+        for (int f = 0, e = result.length-1; f < log10+1; f++, e--){
+            result[e] = someNumber % 10;
+            someNumber = someNumber / 10;
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
 
@@ -38,16 +44,12 @@ public class ArtificialNeuralNetwork {
             }
         }
 
-        System.out.println("=============================================================================================================================");
-
-        for (int x = 9191; x < 9203; x++) {
+        for (int x = 0; x < 1111; x++) {
             Neuroneus[] neuroneuses = nLayer[0];
-            int[] temp = new int[neuroneuses.length];
-            for (int z = neuroneuses.length-1, b = 0 ; z >= 0 && b < neuroneuses.length; z--, b++) {
-                double d = (x-(x % (Math.pow(10, z))))/(Math.pow(10, z));
-                temp[b] = (int) d;
-                double v = d;
-                System.out.printf(" %.0f \t",d);
+            int[] arrOfDigits = toDigitArrayWithFixedCapacity(x);
+            for (int i = 0; i < neuroneuses.length; i++) {
+                neuroneuses[i].getIns().add((double)arrOfDigits[i]);
+                System.out.print(arrOfDigits[i] + "\t");
             }
             System.out.println();
             for (int i = 0; i < wLayer.length; i++) {

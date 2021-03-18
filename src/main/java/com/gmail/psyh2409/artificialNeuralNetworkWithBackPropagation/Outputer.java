@@ -13,12 +13,12 @@ public class Outputer implements Passer{
     private Adder adder = new Adder();
     private double out;
 
-    private double activationSigmoid(Double in) {
+    private double activationSigmoid(double in) {
         return 1/(1+Math.pow(Math.E, (in*(-1))));
     }
 
     @Override
-    public Double forwardLifeCircle() {
-        return null;
+    public double forwardLifeCircle() {
+        return 0;
     }
 }

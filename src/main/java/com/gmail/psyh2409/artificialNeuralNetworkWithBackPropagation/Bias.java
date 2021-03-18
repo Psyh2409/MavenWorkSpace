@@ -11,7 +11,7 @@ public class Bias implements Passer{
     private static final int out = 1;
 
     @Override
-    public Double forwardLifeCircle() {
-        return null;
+    public double forwardLifeCircle() {
+        return 0;
     }
 }
