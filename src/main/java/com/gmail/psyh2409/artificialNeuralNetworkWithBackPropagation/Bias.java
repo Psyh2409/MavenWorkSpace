@@ -4,14 +4,34 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data
-@EqualsAndHashCode
-@NoArgsConstructor
-public class Bias implements Passer{
-    private static final int out = 1;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
-    @Override
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class Bias extends Neuroneus implements Passer{
+    private List<Double> ins;
+    private double sum;
+    private final double out = 1;
+    private List<Synapse> outs;
+
+    public Bias() {
+        ins = new ArrayList<>();
+        outs = new ArrayList<>();
+    }
+
+    private double summer(List<Double> ins) {
+        sum = ins.stream().reduce(0.0, (a, b) -> a + b);
+        return sum;
+    }
+
+    private double activationSigmoid(double in) {
+        return out;
+    }
+
     public double forwardLifeCircle() {
-        return 0;
+        return out;
+
     }
 }
