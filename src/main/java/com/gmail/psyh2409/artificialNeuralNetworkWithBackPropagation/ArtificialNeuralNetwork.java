@@ -63,13 +63,7 @@ public class ArtificialNeuralNetwork {
             for (int i = 0; i < wLayer.length; i++) {
                 Synapse[] synapses = wLayer[i];
                 for (int j = 0; j < synapses.length; j++) {
-                    Synapse synaps;
-                    if (synapses[j] instanceof UnSynapse) {
-                        synaps = (UnSynapse) synapses[j];
-                        synaps.setJustice(0);
-                    } else {
-                        synaps = synapses[j];
-                    }
+                    Synapse synaps = synapses[j];
                     synaps.forwardLifeCircle();
                     System.out.print("|" + String.format("%.2f", synaps.getInDouble()) + "*" + String.format("%.2f", synaps.getJustice()));
                 }
