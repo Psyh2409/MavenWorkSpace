@@ -10,7 +10,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class Neuroneus implements Passer {
 
-    private List<Double> ins; // TODO Map
+    private List<Synapse> ins; // TODO Map || List<Synapse> ? dreams : reality;
     private double sum;
     private double backSum; // delta reActivate
     private double notBadTwice_NotU; // local delta = father's delta * accordance synapse's justice(weight)
@@ -22,8 +22,9 @@ public class Neuroneus implements Passer {
         outs = new ArrayList<>();
     }
 
-    private double summer(List<Double> ins) {
-        sum = ins.stream().reduce(0.0, (a, b) -> a + b);
+    private double summer(List<Synapse> ins) {
+//      sum = ins.stream().map(x -> x.getProduct()).reduce(0.0, (a, b) -> {return a + b;});
+        sum = ins.stream().map(Synapse::getProduct).reduce(0.0, Double::sum);
         return sum;
     }
 
@@ -34,7 +35,7 @@ public class Neuroneus implements Passer {
     }
 
     private double reSigmoid(double out) {
-        backSum = out*(1-out);
+        backSum = out * (1 - out);
         return backSum;
     }
 

@@ -1,9 +1,16 @@
 package com.gmail.psyh2409.artificialNeuralNetworkWithBackPropagation;
 
-public class Inputer implements Passer{
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class Inputer extends Synapse{
+    private double in;
+
     @Override
     public double forwardLifeCircle() {
-        return 0;
+        return in;
     }
 
     @Override

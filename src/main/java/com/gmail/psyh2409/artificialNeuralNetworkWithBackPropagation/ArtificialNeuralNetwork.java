@@ -5,6 +5,7 @@ public class ArtificialNeuralNetwork {
     private final static int hiddenLayer = 4;
     private final static int hLCount = 3;
     private final static int outs = 1;
+    private final static Inputer[] inputer = new Inputer[ins];
 
     private static int[] toDigitArrayWithFixedCapacity(int someNumber) {
         int log10 = someNumber == 0 ? 0 : (int) (Math.log10(someNumber));
@@ -17,6 +18,7 @@ public class ArtificialNeuralNetwork {
     }
 
     public static void main(String[] args) {
+
         Neuroneus[][] nLayer = nInitializer();
         Synapse[][] wLayer = wInitializer(nLayer);
         lifeCircle(nLayer, wLayer, 123, 321);
@@ -27,7 +29,11 @@ public class ArtificialNeuralNetwork {
             Neuroneus[] neuroneuses = nLayer[0];
             int[] arrOfDigits = toDigitArrayWithFixedCapacity(x);
             for (int i = 0; i < neuroneuses.length; i++) {
-                neuroneuses[i].getIns().add((double) arrOfDigits[i]);
+                if(i>0) {
+                    inputer[i].setIn(arrOfDigits[i]);
+                    neuroneuses[i].getIns().add(inputer[i]);
+                    inputer[i].setOutNeuroneus(neuroneuses[i]);
+                }
                 System.out.print(arrOfDigits[i] + "\t");
             }
             System.out.println();
@@ -50,13 +56,18 @@ public class ArtificialNeuralNetwork {
     }
 
     public static Synapse[][] wInitializer(Neuroneus[][] nLayer) {
-        Synapse[][] wLayer = new Synapse[nLayer.length - 1][];
-        for (int i = 0; i < nLayer.length - 1; i++) {
-            int capacity = nLayer[i].length * nLayer[i + 1].length;
+        Synapse[][] wLayer = new Synapse[nLayer.length][];
+        for (int i = 0; i < nLayer.length+1; i++) {
+            int first = nLayer[i].length;
+            int second = nLayer[i+1].length;
+            int capacity = first * second;
+//            if (i==0) {
+                wLayer[i] = new Inputer[ins];
+//            }
             wLayer[i] = new Synapse[capacity];
             int w = 0;
             for (Neuroneus before : nLayer[i]) {
-                for (Neuroneus after : nLayer[i + 1]) {
+                for (Neuroneus after : nLayer[i+1]) {
                     if (after instanceof Bias) {
                         wLayer[i][w] = new UnSynapse(before, after);
                     } else {
@@ -73,13 +84,13 @@ public class ArtificialNeuralNetwork {
 
     public static Neuroneus[][] nInitializer() {
         Neuroneus[][] nLayer = new Neuroneus[hLCount + 2][];
-        for (int i = 0; i < hLCount + 2; i++) {// + ins and outs
-            int capacity = ins;
+        for (int i = 0; i < hLCount + 2; i++) {// (before is Inputer[ins] x=y) + ins and outs
+            int capacity = ins+1; // + bias
             if (i > 0) capacity = hiddenLayer + 1; //+ bias
             if (i == hLCount + 1) capacity = outs;
             nLayer[i] = new Neuroneus[capacity];
             for (int j = 0; j < capacity; j++) {
-                if (i != 0 && i != hLCount + 1 && j == 0) {
+                if (i != hLCount + 1 && j == 0) {
                     nLayer[i][j] = new Bias();
                 } else {
                     nLayer[i][j] = new Neuroneus();
