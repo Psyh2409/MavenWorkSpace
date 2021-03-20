@@ -10,10 +10,12 @@ import java.util.List;
 @EqualsAndHashCode
 public class Neuroneus implements Passer {
 
-    private List<Double> ins;
+    private List<Double> ins; // TODO Map
     private double sum;
+    private double backSum; // delta reActivate
+    private double notBadTwice_NotU; // local delta = father's delta * accordance synapse's justice(weight)
     private double out;
-    private List<Synapse> outs;
+    private List<Synapse> outs; // ? TODO Map ?
 
     public Neuroneus() {
         ins = new ArrayList<>();
@@ -31,8 +33,20 @@ public class Neuroneus implements Passer {
         return out;
     }
 
+    private double reSigmoid(double out) {
+        backSum = out*(1-out);
+        return backSum;
+    }
+
+    //private
+
     public double forwardLifeCircle() {
         return activationSigmoid(summer(ins));
 
+    }
+
+    @Override
+    public double backwardLifeCircle() {
+        return 0;
     }
 }

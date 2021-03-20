@@ -36,4 +36,9 @@ public class Synapse implements Passer {
         inDouble = inNeuroneus.forwardLifeCircle();
         return weighting(inDouble);
     }
+
+    @Override
+    public double backwardLifeCircle() {
+        return 0;
+    }
 }

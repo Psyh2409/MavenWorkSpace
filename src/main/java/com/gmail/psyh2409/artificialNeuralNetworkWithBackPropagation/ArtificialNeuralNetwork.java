@@ -57,10 +57,10 @@ public class ArtificialNeuralNetwork {
             int w = 0;
             for (Neuroneus before : nLayer[i]) {
                 for (Neuroneus after : nLayer[i + 1]) {
-                    if (!(after instanceof Bias)) {
-                        wLayer[i][w] = new Synapse(before, after);
-                    } else {
+                    if (after instanceof Bias) {
                         wLayer[i][w] = new UnSynapse(before, after);
+                    } else {
+                        wLayer[i][w] = new Synapse(before, after);
                     }
                     wLayer[i][w].setOutNeuroneus(after);
                     before.getOuts().add(wLayer[i][w]);
@@ -73,7 +73,7 @@ public class ArtificialNeuralNetwork {
 
     public static Neuroneus[][] nInitializer() {
         Neuroneus[][] nLayer = new Neuroneus[hLCount + 2][];
-        for (int i = 0; i < hLCount + 2; i++) {
+        for (int i = 0; i < hLCount + 2; i++) {// + ins and outs
             int capacity = ins;
             if (i > 0) capacity = hiddenLayer + 1; //+ bias
             if (i == hLCount + 1) capacity = outs;

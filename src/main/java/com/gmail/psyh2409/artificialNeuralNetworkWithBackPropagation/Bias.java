@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Bias extends Neuroneus implements Passer {
+public class Bias extends Neuroneus {
     private final double out = 1;
 
     @Override

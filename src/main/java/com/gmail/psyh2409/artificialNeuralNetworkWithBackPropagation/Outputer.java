@@ -21,4 +21,9 @@ public class Outputer implements Passer{
     public double forwardLifeCircle() {
         return 0;
     }
+
+    @Override
+    public double backwardLifeCircle() {
+        return 0;
+    }
 }

@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UnSynapse extends Synapse implements Passer {
+public class UnSynapse extends Synapse {
     private final double justice = 0;
 
     public UnSynapse(Neuroneus before, Neuroneus after) {
